@@ -38,15 +38,20 @@ SettingsTab:CreateDropdown({
         "DarkBlue", "Green", "Light", "Ocean", "Serenity"
     },
     CurrentOption = theme,
-    Callback = function(option)
-        getgenv().JiroTheme = option
-        Rayfield:Notify({
-            Title = "Theme Changed",
-            Content = "Reloading with: " .. option,
-            Duration = 3,
-            Image = "bell"
-        })
-        task.wait(1.5)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/captaingorex/cb/refs/heads/main/counterblox.lua"))()
+    Callback = function(Selected)
+        pcall(function()
+            getgenv().JiroTheme = Selected
+
+            Rayfield:Notify({
+                Title = "Theme Changed",
+                Content = "Reloading UI with " .. Selected,
+                Duration = 4,
+                Image = "bell"
+            })
+
+            task.delay(1.5, function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/captaingorex/cb/refs/heads/main/counterblox.lua"))()
+            end)
+        end)
     end
 })
